@@ -1,5 +1,43 @@
 # Create Network Infrastructure Service (Load Balancer / Ingress / Cert-Manager)
 
+# Create persistent Service Account
+This is already done by deploying our Demo-Env
+
+```
+ACCOUNT=devuser
+
+#Create SA
+kubectl create sa $ACCOUNT
+
+#Create ClusterRoleBinding
+cat << EOF > $ACCOUNT-rb.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: $ACCOUNT-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: $ACCOUNT
+  namespace: default
+EOF
+
+kubectl create -f $ACCOUNT-rb.yaml
+
+#Fetch Token and Cluster
+TOKEN=$(kubectl get secrets $(kubectl get serviceaccounts $ACCOUNT -o jsonpath={.secrets[].name}) -o jsonpath={.data.token} | base64 --decode)
+CLUSTER=$(kubectl config view --minify -o jsonpath='{.clusters[].name}')
+
+#Modifing KUBECONFIG
+kubectl config set-credentials $ACCOUNT --token=$TOKEN
+kubectl config set-context $ACCOUNT-context --cluster $CLUSTER --user devuser
+kubectl config use-context $ACCOUNT-context
+```
+
+
 # MetalLB
 This is already done by deploying our Demo-Env
 ```
