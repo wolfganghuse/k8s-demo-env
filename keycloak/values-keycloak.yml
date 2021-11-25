@@ -1,0 +1,32 @@
+extraEnv: |
+  - name: KEYCLOAK_LOGLEVEL
+    value: DEBUG
+  - name: KEYCLOAK_USER
+    value: admin
+  - name: KEYCLOAK_PASSWORD
+    value: as897gsdfs766dfsgjhsdf
+  - name: PROXY_ADDRESS_FORWARDING
+    value: "true"
+
+args:
+  - -Dkeycloak.profile.feature.docker=enabled
+
+ingress:
+  enabled: true
+  ingressClassName: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: ntnxlab-ca
+  rules:
+    - host: sso.ntnxlab.local
+      paths:
+        - path: /
+          pathType: "Prefix"
+
+  tls:
+  - hosts:
+    - sso.demo-mgmt-k8s.ntnx.test
+    secretName: keycloak-tld-secret
+
+postgresql:
+  enabled: true
+  postgresqlPassword: asdfaso97sadfjylfasdsf78
