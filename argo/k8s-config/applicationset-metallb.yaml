@@ -2,13 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: metallb
-  namespace: gitops
+  namespace: argocd
 spec:
   generators:
   - clusters:
       selector:
         matchLabels:
-          type: 'argo'
+          type: argo
   template:
     metadata:
       name: '{{name}}-metallb'
