@@ -24,7 +24,7 @@ spec:
         chart: metallb
         helm:
           parameters:
-            - configInline
+            - configInline:
               - address-pools:
                 - name: default
                   protocol: layer2
