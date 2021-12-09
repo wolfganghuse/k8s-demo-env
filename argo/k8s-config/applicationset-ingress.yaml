@@ -18,7 +18,7 @@ spec:
         server: '{{server}}'
       project: default
       source:
-        chart: nginx-ingress
+        chart: ingress-nginx
         helm:
           parameters:
           - name:  service.type
