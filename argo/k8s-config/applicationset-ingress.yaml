@@ -18,10 +18,10 @@ spec:
         server: '{{server}}'
       project: "default"
       source:
+        repoURL: https://kubernetes-charts.storage.googleapis.com/
         chart: nginx-ingress
+        targetRevision: 1.40.3
         helm:
           parameters:
           - name:  service.type
             value: LoadBalancer
-        repoURL: https://github.com/kubernetes/ingress-nginx/charts/ingress-nginx
-        targetRevision: 4.0.13
