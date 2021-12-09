@@ -14,7 +14,7 @@ spec:
       name: '{{name}}-ingress'
     spec:
       destination:
-        namespace: nginx-ingress
+        namespace: ingress-nginx
         server: '{{server}}'
       project: default
       source:
@@ -23,5 +23,5 @@ spec:
           parameters:
           - name:  service.type
             value: LoadBalancer
-        repoURL: kubernetes.github.io/ingress-nginx
+        repoURL: kubernetes.github.io
         targetRevision: 4.0.13
