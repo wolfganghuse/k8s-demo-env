@@ -23,11 +23,12 @@ spec:
       source:
         chart: metallb
         helm:
-        - configInline:
-          address-pools:
-          - name: default
-            protocol: layer2
-            addresses: 
-            - 172.23.131.132-172.23.131.134
+          parameters:
+          - configInline:
+            address-pools:
+            - name: default
+              protocol: layer2
+              addresses: 
+              - 172.23.131.132-172.23.131.134
         repoURL: https://charts.bitnami.com/bitnami
         targetRevision: 2.5.13
