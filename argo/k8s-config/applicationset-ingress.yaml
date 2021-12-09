@@ -23,5 +23,5 @@ spec:
           parameters:
           - name:  service.type
             value: LoadBalancer
-        repoURL: https://kubernetes-charts.storage.googleapis.com/
-        targetRevision: 1.34.2
+        repoURL: kubernetes.github.io/ingress-nginx
+        targetRevision: 4.0.13
