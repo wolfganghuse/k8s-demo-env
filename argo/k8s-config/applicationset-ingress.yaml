@@ -14,14 +14,14 @@ spec:
       name: '{{name}}-ingress'
     spec:
       destination:
-        namespace: ingress-nginx
+        namespace: nginx-ingress
         server: '{{server}}'
       project: default
       source:
-        chart: ingress-nginx
+        chart: nginx-ingress-controller
         helm:
           parameters:
           - name:  service.type
             value: LoadBalancer
-        repoURL: kubernetes.github.io
-        targetRevision: 4.0.13
+        repoURL: https://charts.bitnami.com/bitnami
+        targetRevision: 9.0.9
