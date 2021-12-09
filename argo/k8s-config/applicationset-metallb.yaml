@@ -28,7 +28,7 @@ spec:
             address-pools:
             - name: default
               protocol: layer2
-              addresses: 
+              addresses:
               - 172.23.131.132-172.23.131.134
         repoURL: https://charts.bitnami.com/bitnami
         targetRevision: 2.5.13
