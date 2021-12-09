@@ -17,6 +17,9 @@ spec:
         namespace: nginx-ingress
         server: '{{server}}'
       project: default
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
       source:
         chart: nginx-ingress-controller
         helm:
