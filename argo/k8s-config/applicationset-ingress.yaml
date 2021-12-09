@@ -8,7 +8,7 @@ spec:
   - clusters:
       selector:
         matchLabels:
-          type: 'argo'
+          type: argo
   template:
     metadata:
       name: '{{name}}-ingress'
