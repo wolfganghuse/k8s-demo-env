@@ -16,7 +16,7 @@ spec:
       destination:
         namespace: ingress
         server: '{{server}}'
-      project: "infra"
+      project: "default"
       source:
         chart: nginx-ingress
         helm:
