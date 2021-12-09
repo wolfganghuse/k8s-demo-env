@@ -24,9 +24,9 @@ spec:
         chart: metallb
         helm:
           parameters:
-            address-pools:
-            - name: default
-              protocol: layer2
-              addresses:
+            - address-pools:
+              - name: default
+                protocol: layer2
+                addresses:
         repoURL: https://charts.bitnami.com/bitnami
         targetRevision: 2.5.13
