@@ -1,0 +1,22 @@
+spec:
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          type: 'argo'
+  template:
+    metadata:
+      name: '{{name}}-ingress'
+    spec:
+      destination:
+        namespace: ingress
+        server: '{{server}}'
+      project: "infra"
+      source:
+        chart: nginx-ingress
+        helm:
+          parameters:
+          - name:  service.type
+            value: LoadBalancer
+        repoURL: https://kubernetes-charts.storage.googleapis.com/
+        targetRevision: 1.34.2
