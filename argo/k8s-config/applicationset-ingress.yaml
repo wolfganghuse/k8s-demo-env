@@ -14,14 +14,14 @@ spec:
       name: '{{name}}-ingress'
     spec:
       destination:
-        namespace: ingress
+        namespace: nginx-ingress
         server: '{{server}}'
-      project: "default"
+      project: default
       source:
-        repoURL: https://kubernetes-charts.storage.googleapis.com/
         chart: nginx-ingress
-        targetRevision: 1.40.3
         helm:
           parameters:
           - name:  service.type
             value: LoadBalancer
+        repoURL: https://kubernetes-charts.storage.googleapis.com/
+        targetRevision: 1.34.2
