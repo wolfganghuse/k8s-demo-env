@@ -23,5 +23,5 @@ spec:
           parameters:
           - name:  service.type
             value: LoadBalancer
-        repoURL: https://github.com/kubernetes/ingress-nginx
+        repoURL: https://github.com/kubernetes/ingress-nginx/charts/ingress-nginx
         targetRevision: 4.0.13
