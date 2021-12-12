@@ -14,17 +14,19 @@ spec:
       name: '{{name}}-ingress'
     spec:
       destination:
-        namespace: nginx-ingress
+        namespace: ingress-nginx
         server: '{{server}}'
       project: default
       syncPolicy:
+        automated:
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
       source:
-        chart: nginx-ingress-controller
+        chart: ingress-nginx
         helm:
           parameters:
           - name:  service.type
             value: LoadBalancer
-        repoURL: https://charts.bitnami.com/bitnami
-        targetRevision: 9.0.9
+        repoURL: https://kubernetes.github.io/ingress-nginx
+        targetRevision: 3.23.0

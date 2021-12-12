@@ -18,6 +18,8 @@ spec:
         server: '{{server}}'
       project: default
       syncPolicy:
+        automated:
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
       source:
