@@ -27,8 +27,19 @@ EOF
 
 kubectl create -f $ACCOUNT-rb.yaml
 
-#Fetch Token and Cluster
-TOKEN=$(kubectl get secrets $(kubectl get serviceaccounts $ACCOUNT -o jsonpath={.secrets[].name}) -o jsonpath={.data.token} | base64 --decode)
+#Create Token and Cluster
+
+kubectl create -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: $ACCOUNT-secret
+  annotations:
+    kubernetes.io/service-account.name: $ACCOUNT
+type: kubernetes.io/service-account-token
+EOF
+
+TOKEN=$(kubectl get secrets $ACCOUNT-secret -o jsonpath={.data.token} | base64 --decode)
 CLUSTER=$(kubectl config view --minify -o jsonpath='{.clusters[].name}')
 
 #Modifing KUBECONFIG
@@ -41,29 +52,19 @@ kubectl config use-context $ACCOUNT-context
 # MetalLB
 This is already done by deploying our Demo-Env
 ```
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
-# On first install only
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml
 
 
-cat << EOF > metallb-config.yaml
-apiVersion: v1
-kind: ConfigMap
+kubectl apply -f - <<EOF
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
 metadata:
+  name: cheap
   namespace: metallb-system
-  name: config
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - 10.38.196.240-10.38.196.250 
-
+spec:
+  addresses:
+  - 10.48.38.41-10.48.38.42
 EOF
-
-kubectl apply -f metallb-config.yaml
 ```
 
 # Ingress
